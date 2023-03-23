@@ -1,5 +1,10 @@
 #!/usr/bin/python3
-def read_file(filename=""):
-    with open(filename, "r", encoding="utf8") as file:
-        content = file.read()
-        print(content)
+"""
+function that writes a string to a text file
+"""
+
+
+def write_file(filename="", text=""):
+    """ module write_file """
+    with open(filename, 'w') as b:
+        return b.write(text)
