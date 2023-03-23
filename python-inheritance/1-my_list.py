@@ -1,10 +1,12 @@
 #!/usr/bin/python3
-''' Module: 1-my_list'''
+""" A class to list items """
 
 
 class MyList(list):
-    ''' Represents a MyList'''
+    """ A class to list items """
 
     def print_sorted(self):
-        '''prints the list, but sorted '''
-        print(sorted(self))
+        """ A function that prints sorted list items"""
+        temp_list = self[:]
+        temp_list.sort()
+        print("{}".format(temp_list))
