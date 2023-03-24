@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-"""
-function that writes a string to a text file
-"""
+""" JSON reprsentation of object """
+import json
 
 
-def write_file(filename="", text=""):
-    """ module write_file """
-    with open(filename, 'w') as b:
-        return b.write(text)
+def to_json_string(my_obj):
+    """ return JSON format """
+    return json.dumps(my_obj)
