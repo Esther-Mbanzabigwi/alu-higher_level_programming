@@ -1,12 +1,29 @@
+
 #!/usr/bin/node
+
 const request = require('request');
-request(process.argv[2], function (error, response, body) {
-  if (!error) {
-    const results = JSON.parse(body).results;
-    console.log(results.reduce((count, movie) => {
-      return movie.characters.find((character) => character.endsWith('/18/'))
-        ? count + 1
-        : count;
-    }, 0));
-  }
-});
+
+// Function to check if Wedge Antilles is present in a movie
+function isWedgeAntillesPresent (movie) {
+  const wedgeAntillesId = '18';
+  return movie.characters.some(characterUrl => characterUrl.includes(wedgeAntillesId));
+}
+
+// Check if the API URL is provided as an argument
+if (process.argv.length > 2) {
+  const apiUrl = process.argv[2];
+
+  request.get(apiUrl, (error, response, body) => {
+    if (error) {
+      console.error(`An error occurred while making the request: ${error}`);
+    } else if (response.statusCode !== 200) {
+      console.error(`Error: ${response.statusCode} - ${response.statusMessage}`);
+    } else {
+      const movies = JSON.parse(body).results;
+      const moviesWithWedgeAntilles = movies.filter(isWedgeAntillesPresent);
+      console.log(moviesWithWedgeAntilles.length);
+    }
+  });
+} else {
+  console.log('Please provide the API URL as an argument.');
+}
